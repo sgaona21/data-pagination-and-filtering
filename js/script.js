@@ -12,32 +12,33 @@ For assistance:
 */
 
 let studentList = document.querySelector(".student-list");
+let linkList = document.querySelector(".link-list");
 
 /*
 Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
-function showPage(list, page) {
-   let start = page * 9;
-   let end  = page * 9;
-   let text = '';
-   for (let v in list) {
-      if (v >= start && v < end) {
-         text += `<li class="student-item cf">
-         <div class="student-details">
-           <img class="avatar" src="${data[v].picture.thumbnail}" alt="Profile Picture">
-           <h3>${data[v].name.first} ${data[v].name.last}</h3>
-           <span class="email">${data[v].email}</span>
-         </div>
-         <div class="joined-details">
-           <span class="date">Joined ${data[v].registered.date}</span>
-         </div>
-       </li>`
-      }
-   }
-   studentList.innerHTML = text;
-   console.log(studentList.innerHTML)
-}
+// function showPage(list, page) {
+//    let start = page * 9;
+//    let end  = page * 9;
+//    let text = '';
+//    for (let v in list) {
+//       if (v >= start && v < end) {
+//          text += `<li class="student-item cf">
+//          <div class="student-details">
+//            <img class="avatar" src="${data[v].picture.thumbnail}" alt="Profile Picture">
+//            <h3>${data[v].name.first} ${data[v].name.last}</h3>
+//            <span class="email">${data[v].email}</span>
+//          </div>
+//          <div class="joined-details">
+//            <span class="date">Joined ${data[v].registered.date}</span>
+//          </div>
+//        </li>`
+//       }
+//    }
+//    studentList.innerHTML = text;
+//    console.log(studentList.innerHTML)
+// }
 
 
 /*
@@ -48,30 +49,49 @@ This function will create and insert/append the elements needed for the paginati
 
 
 // Call functions
-console.log(data.length)
 
 
 
 
 
-//  function showStudents(data) {
-//    let text = '';
-//    for (let v in data) {
-//       text += `<li class="student-item cf">
-//          <div class="student-details">
-//            <img class="avatar" src="${data[v].picture.thumbnail}" alt="Profile Picture">
-//            <h3>${data[v].name.first} ${data[v].name.last}</h3>
-//            <span class="email">${data[v].email}</span>
-//          </div>
-//          <div class="joined-details">
-//            <span class="date">Joined ${data[v].registered.date}</span>
-//          </div>
-//        </li>`
-//    }
-//    studentList.innerHTML = text;
-//  }
 
-//  showStudents(data);
+ function showStudents(data) {
+   let text = '';
+   for (let v in data) {
+      text += `<li class="student-item cf">
+         <div class="student-details">
+           <img class="avatar" src="${data[v].picture.thumbnail}" alt="Profile Picture">
+           <h3>${data[v].name.first} ${data[v].name.last}</h3>
+           <span class="email">${data[v].email}</span>
+         </div>
+         <div class="joined-details">
+           <span class="date">Joined ${data[v].registered.date}</span>
+         </div>
+       </li>`
+   }
+   studentList.innerHTML = text;
+ }
+
+ showStudents(data);
+
+ function displayNine() {
+   let pageButtons = Math.ceil(data.length / 9);
+   let text = '';
+   for (let i = 0; i < pageButtons; i++) {
+      text += ` <li>
+            <button type="button">${i + 1}</button>
+            </li>`
+   }
+   linkList.innerHTML = text;
+ }
+
+ linkList.addEventListener("click", (e) => {
+   if (e.target.type === "button") {
+      
+   }
+ })
+
+ displayNine()
 
 
 
