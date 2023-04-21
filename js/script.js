@@ -85,13 +85,34 @@ This function will create and insert/append the elements needed for the paginati
    linkList.innerHTML = text;
  }
 
+
+
+for (let v of studentList.children) {
+   v.style.display = "none";
+};
+
+for (let i = 0; i < 9; i++) {
+   studentList.children[i].style.display = "block";
+}
+
+
+
+
  linkList.addEventListener("click", (e) => {
    if (e.target.type === "button") {
-      
+      for (let i = 0; i < studentList.children.length; i++) {
+         studentList.children[i].style.display = "none";
+      }
+      let currentTab = +e.target.textContent;
+         let high = currentTab * 9;
+         let low = high - 9;
+         for (let i = 0; i < studentList.children.length; i++) {
+            if (i < high && i >= low) {
+               studentList.children[i].style.display = "block";
+            }
+         }
    }
  })
 
  displayNine()
-
-
 
