@@ -13,6 +13,7 @@ For assistance:
 
 let studentList = document.querySelector(".student-list");
 let linkList = document.querySelector(".link-list");
+let pagination = document.querySelector(".pagination");
 
 /*
 Create the `showPage` function
@@ -78,7 +79,7 @@ This function will create and insert/append the elements needed for the paginati
    let pageButtons = Math.ceil(data.length / 9);
    let text = '';
    for (let i = 0; i < pageButtons; i++) {
-      text += ` <li>
+      text += `<li>
             <button type="button">${i + 1}</button>
             </li>`
    }
@@ -96,7 +97,8 @@ for (let i = 0; i < 9; i++) {
 }
 
 
-
+console.log(linkList.children)
+console.log(studentList.children)
 
  linkList.addEventListener("click", (e) => {
    if (e.target.type === "button") {
@@ -113,6 +115,8 @@ for (let i = 0; i < 9; i++) {
          }
    }
  })
+
+
 
  displayNine()
 
