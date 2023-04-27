@@ -1,0 +1,29 @@
+ function displayNine() {
+   let pageButtons = Math.ceil(data.length / 9);
+   let text = '';
+   for (let i = 0; i < pageButtons; i++) {
+      text += `<li>
+            <button type="button">${i + 1}</button>
+            </li>`    
+   }
+   linkList.innerHTML = text;
+ };
+
+
+
+
+  function displayNine() {
+   let pageButtons = Math.ceil(data.length / 9);
+   let text = '';
+   for (let i = 0; i < pageButtons; i++) {
+      let newListItem = document.createElement('li')
+      let newButton = document.createElement("button");
+      newButton.type = "button";
+      newButton.textContent = `${i + 1}`;
+      newListItem.append(newButton);
+      linkList.append(newListItem);
+      if (newButton.textContent === "1") {
+         newButton.className = "active";
+      }
+   }
+ };
