@@ -4,9 +4,10 @@ FSJS Project 2 - Data Pagination and Filtering
 */
 
 /////GLOBAL VARIABLES/////
-let studentList = document.querySelector(".student-list");
-let linkList = document.querySelector(".link-list");
-let pagination = document.querySelector(".pagination");
+const studentList = document.querySelector(".student-list");
+const linkList = document.querySelector(".link-list");
+const pagination = document.querySelector(".pagination");
+const header = document.querySelector(".header");
 
 
 function showStudents(data) {
@@ -80,5 +81,20 @@ linkList.addEventListener("click", (e) => {
          }
       }
 });
+
+
+///The following code block will create the search bar and dynamically display it to the page. ///
+let searchBar = document.createElement("div");
+searchBar.innerHTML = `<label for="search" class="student-search">
+<span>Search by name</span>
+<input id="search" placeholder="Search by name...">
+<button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+</label>`;
+header.append(searchBar)
+
+
+
+
+
 
 
