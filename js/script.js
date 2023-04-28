@@ -26,7 +26,7 @@ function showStudents(data) {
 showStudents(data);
 
 function generateButtons(totalStudents) {
-   /// This function will dynamically create and display pagination buttons. The amount of buttons created will correlate with the number of search results. ///  
+   /// This function will dynamically create and display pagination buttons. The amount of buttons created will correlate with numeric value of the parameter. ///  
       let pageButtons = Math.ceil(totalStudents / 9);  
       for (let i = 0; i < pageButtons; i++) {
          let newListItem = document.createElement('li')
@@ -98,48 +98,48 @@ header.append(searchBar)
 /// The following code contains the search bar functionality. ///
 const search = document.getElementById("search");
 search.addEventListener("input", () => {
-   for (let i = 0; i < studentList.children.length; i++) {
-      if (studentList.children[i].firstElementChild.firstElementChild.nextElementSibling.textContent.toUpperCase().includes(search.value.toUpperCase())) {
-         studentList.children[i].style.display = "block"
-         studentList.children[i].className = "student-item cf present"
-      } else if (!studentList.children[i].firstElementChild.firstElementChild.nextElementSibling.textContent.toUpperCase().includes(search.value.toUpperCase())) {
-         studentList.children[i].style.display = "none"
-         studentList.children[i].className = "student-item cf absent"
-      } 
-   };
-   ///The code below with create an array of students that are currently visible and restrict visibility to 9 students per page.  ///
-   let counter = 0;
-   let visible = [];
-   for (let a of studentList.children) {
-      if (a.style.display === "block") {
-         counter++;
-         visible.push(a);
-      }
-   }
-   if (visible.length > 9) {
-      for (let b = 0; b < visible.length; b++) {
-         if (b > 8) {
-           visible[b].style.display = "none"
+      for (let i = 0; i < studentList.children.length; i++) {
+         if (studentList.children[i].firstElementChild.firstElementChild.nextElementSibling.textContent.toUpperCase().includes(search.value.toUpperCase())) {
+            studentList.children[i].style.display = "block"
+            studentList.children[i].className = "student-item cf present"
+         } else if (!studentList.children[i].firstElementChild.firstElementChild.nextElementSibling.textContent.toUpperCase().includes(search.value.toUpperCase())) {
+            studentList.children[i].style.display = "none"
+            studentList.children[i].className = "student-item cf absent"
+         } 
+      };
+      ///The code below with create an array of students that are currently visible and restrict visibility to 9 students per page.  ///
+      let counter = 0;
+      let visible = [];
+      for (let a of studentList.children) {
+         if (a.style.display === "block") {
+            counter++;
+            visible.push(a);
          }
       }
-   }
-   ///The code block below will dynamically update the number of pagination buttons to match the number of students returned in search results. ///
-   let presents = 0;
-   for (let c = 0; c < studentList.children.length; c++) {
-      if (studentList.children[c].className === "student-item cf present") {
-         presents++
+      if (visible.length > 9) {
+         for (let b = 0; b < visible.length; b++) {
+            if (b > 8) {
+            visible[b].style.display = "none"
+            }
+         }
       }
-   };
-   linkList.innerHTML = '';
-   generateButtons(presents)
+      ///The code block below will dynamically update the number of pagination buttons to match the number of students returned in search results. ///
+      let presents = 0;
+      for (let c = 0; c < studentList.children.length; c++) {
+         if (studentList.children[c].className === "student-item cf present") {
+            presents++
+         }
+      };
+      linkList.innerHTML = '';
+      generateButtons(presents)
 
-   ///This code block will alert the user when 0 search results return. ///
-   let noResults = document.createElement("div");
-   if (presents === 0) {
-      noResults.textContent = "No Results Found";
-      noResults.style.color = "red";
-      linkList.append(noResults);
-   } 
+      ///This code block will alert the user when 0 search results return. ///
+      let noResults = document.createElement("div");
+      if (presents === 0) {
+         noResults.textContent = "No Results Found";
+         noResults.style.color = "red";
+         linkList.append(noResults);
+      } 
 });
 
 
