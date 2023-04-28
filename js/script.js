@@ -15,7 +15,7 @@ function showStudents(data) {
    /// This function will create the markup for each student in the data array and dynamically display it on the page. ///  
       let text = '';
       for (let v in data) {
-         text += `<li class="student-item cf">
+         text += `<li class="student-item cf present">
             <div class="student-details">
             <img class="avatar" src="${data[v].picture.thumbnail}" alt="Profile Picture">
             <h3>${data[v].name.first} ${data[v].name.last}</h3>
@@ -65,16 +65,23 @@ generateButtons(data.length);
 
 linkList.addEventListener("click", (e) => {
    /// The first part of this event handler will dsiplay the students in increments of 9 in correlation to the pagination button that is selected. ///   
+   let present = [];
+   for (let c = 0; c < studentList.children.length; c++) {
+      if (studentList.children[c].className === "student-item cf present") {
+         present.push(studentList.children[c])
+      }
+   };
+   console.log(present)
       if (e.target.type === "button") {
-         for (let i = 0; i < studentList.children.length; i++) {
-            studentList.children[i].style.display = "none";
+         for (let i = 0; i < present.length; i++) {
+            present[i].style.display = "none";
          }
          let currentTab = +e.target.textContent;
             let high = currentTab * 9;
             let low = high - 9;
-            for (let i = 0; i < studentList.children.length; i++) {
+            for (let i = 0; i < present.length; i++) {
                if (i < high && i >= low) {
-                  studentList.children[i].style.display = "block";
+                  present[i].style.display = "block";
                }
             }
    /// The seconond part of this event handler will ensure the "active" class will be assigned to the selected pagination button while revoking it from any unselected pagination button. ///      
@@ -106,8 +113,10 @@ search.addEventListener("input", () => {
    for (let i = 0; i < studentList.children.length; i++) {
       if (studentList.children[i].firstElementChild.firstElementChild.nextElementSibling.textContent.toUpperCase().includes(search.value.toUpperCase())) {
          studentList.children[i].style.display = "block"
+         studentList.children[i].className = "student-item cf present"
       } else if (!studentList.children[i].firstElementChild.firstElementChild.nextElementSibling.textContent.toUpperCase().includes(search.value.toUpperCase())) {
          studentList.children[i].style.display = "none"
+         studentList.children[i].className = "student-item cf absent"
       } 
    };
    let counter = 0;
@@ -125,23 +134,26 @@ search.addEventListener("input", () => {
          }
       }
    }
-   
-   // linkList.innerHTML = ''
-   // generateButtons()
+   let presents = 0;
+   for (let c = 0; c < studentList.children.length; c++) {
+      if (studentList.children[c].className === "student-item cf present") {
+         presents++
+      }
+   };
+   console.log(presents)   
+   linkList.innerHTML = '';
+   generateButtons(presents)
+
+   let noResults = document.createElement("div");
+   if (presents === 0) {
+      noResults.textContent = "No Results Found";
+      noResults.style.color = "red";
+      linkList.append(noResults);
+   } 
 })
 
 
-// console.log(studentList.children[0].firstElementChild.firstElementChild.nextElementSibling.textContent.toUpperCase().includes(search.value.toUpperCase()));
-// console.log(document.querySelector(".student-details h3").textContent);
-// console.log(studentList.querySelector(".student-details h3").textContent);
-// console.log(search.value)
-// console.log(studentList.children[0].style.display = "none")
-// console.log(studentList.children[0].firstElementChild.firstElementChild.nextElementSibling.textContent.includes(search.value))
 
-
-function searchResults() {
-
-};
 
 
 

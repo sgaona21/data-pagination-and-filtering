@@ -44,3 +44,36 @@
          }
       }
 };
+
+
+linkList.addEventListener("click", (e) => {
+   /// The first part of this event handler will dsiplay the students in increments of 9 in correlation to the pagination button that is selected. ///   
+   let present = 0;
+   for (let c = 0; c < studentList.children.length; c++) {
+      if (studentList.children[c].className === "student-item cf present") {
+         present++
+      }
+   };
+   
+      if (e.target.type === "button") {
+         for (let i = 0; i < studentList.children.length; i++) {
+            studentList.children[i].style.display = "none";
+         }
+         let currentTab = +e.target.textContent;
+            let high = currentTab * 9;
+            let low = high - 9;
+            for (let i = 0; i < studentList.children.length; i++) {
+               if (i < high && i >= low) {
+                  studentList.children[i].style.display = "block";
+               }
+            }
+   /// The seconond part of this event handler will ensure the "active" class will be assigned to the selected pagination button while revoking it from any unselected pagination button. ///      
+         for (let x = 0; x < linkList.children.length; x++) {
+            e.target.className = "active";
+            let selector = +e.target.textContent - 1;
+            if (x != selector) {
+               linkList.children[x].firstChild.className = '';
+            }
+         }
+      }
+});
