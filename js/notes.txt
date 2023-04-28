@@ -27,3 +27,20 @@
       }
    }
  };
+
+
+ function generateButtons() {
+   /// This function will dynamically create and display pagination buttons. The amount of buttons created will correlate with the length of the data array. ///  
+      let pageButtons = Math.ceil(data.length / 9);  
+      for (let i = 0; i < pageButtons; i++) {
+         let newListItem = document.createElement('li')
+         let newButton = document.createElement("button");
+         newButton.type = "button";
+         newButton.textContent = `${i + 1}`;
+         newListItem.append(newButton);
+         linkList.append(newListItem);
+         if (newButton.textContent === "1") {
+            newButton.className = "active";
+         }
+      }
+};

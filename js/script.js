@@ -10,6 +10,7 @@ const pagination = document.querySelector(".pagination");
 const header = document.querySelector(".header");
 
 
+
 function showStudents(data) {
    /// This function will create the markup for each student in the data array and dynamically display it on the page. ///  
       let text = '';
@@ -28,9 +29,9 @@ function showStudents(data) {
       studentList.innerHTML = text;
 };
 
-function generateButtons() {
+function generateButtons(totalStudents) {
    /// This function will dynamically create and display pagination buttons. The amount of buttons created will correlate with the length of the data array. ///  
-      let pageButtons = Math.ceil(data.length / 9);  
+      let pageButtons = Math.ceil(totalStudents / 9);  
       for (let i = 0; i < pageButtons; i++) {
          let newListItem = document.createElement('li')
          let newButton = document.createElement("button");
@@ -45,16 +46,21 @@ function generateButtons() {
 };
 
 showStudents(data);
-generateButtons();
 
 
-/// The following for loops will ensure that only a maximum of 9 students will be displayed on the page at any given time. ///
+
+// / The following for loops will ensure that only a maximum of 9 students will be displayed on the page at any given time. ///
 for (let v of studentList.children) {
    v.style.display = "none";
 };
 for (let i = 0; i < 9; i++) {
    studentList.children[i].style.display = "block";
 };
+
+generateButtons(data.length);
+
+
+
 
 
 linkList.addEventListener("click", (e) => {
@@ -93,8 +99,49 @@ searchBar.innerHTML = `<label for="search" class="student-search">
 header.append(searchBar)
 
 
+/// The following code contains the search bar functionality. ///
+const search = document.getElementById("search");
+
+search.addEventListener("input", () => {
+   for (let i = 0; i < studentList.children.length; i++) {
+      if (studentList.children[i].firstElementChild.firstElementChild.nextElementSibling.textContent.toUpperCase().includes(search.value.toUpperCase())) {
+         studentList.children[i].style.display = "block"
+      } else if (!studentList.children[i].firstElementChild.firstElementChild.nextElementSibling.textContent.toUpperCase().includes(search.value.toUpperCase())) {
+         studentList.children[i].style.display = "none"
+      } 
+   };
+   let counter = 0;
+   let visible = [];
+   for (let a of studentList.children) {
+      if (a.style.display === "block") {
+         counter++;
+         visible.push(a);
+      }
+   }
+   if (visible.length > 9) {
+      for (let b = 0; b < visible.length; b++) {
+         if (b > 8) {
+           visible[b].style.display = "none"
+         }
+      }
+   }
+   
+   // linkList.innerHTML = ''
+   // generateButtons()
+})
 
 
+// console.log(studentList.children[0].firstElementChild.firstElementChild.nextElementSibling.textContent.toUpperCase().includes(search.value.toUpperCase()));
+// console.log(document.querySelector(".student-details h3").textContent);
+// console.log(studentList.querySelector(".student-details h3").textContent);
+// console.log(search.value)
+// console.log(studentList.children[0].style.display = "none")
+// console.log(studentList.children[0].firstElementChild.firstElementChild.nextElementSibling.textContent.includes(search.value))
+
+
+function searchResults() {
+
+};
 
 
 
