@@ -1,14 +1,8 @@
-/*
-Treehouse Techdegree:
-FSJS Project 2 - Data Pagination and Filtering
-*/
-
 /////GLOBAL VARIABLES/////
 const studentList = document.querySelector(".student-list");
 const linkList = document.querySelector(".link-list");
 const pagination = document.querySelector(".pagination");
 const header = document.querySelector(".header");
-
 
 
 function showStudents(data) {
@@ -29,8 +23,10 @@ function showStudents(data) {
       studentList.innerHTML = text;
 };
 
+showStudents(data);
+
 function generateButtons(totalStudents) {
-   /// This function will dynamically create and display pagination buttons. The amount of buttons created will correlate with the length of the data array. ///  
+   /// This function will dynamically create and display pagination buttons. The amount of buttons created will correlate with the number of search results. ///  
       let pageButtons = Math.ceil(totalStudents / 9);  
       for (let i = 0; i < pageButtons; i++) {
          let newListItem = document.createElement('li')
@@ -45,11 +41,8 @@ function generateButtons(totalStudents) {
       }
 };
 
-showStudents(data);
 
-
-
-// / The following for loops will ensure that only a maximum of 9 students will be displayed on the page at any given time. ///
+// / The following for loops will ensure that only a maximum of 9 students will be displayed when the page first loads. ///
 for (let v of studentList.children) {
    v.style.display = "none";
 };
@@ -60,9 +53,6 @@ for (let i = 0; i < 9; i++) {
 generateButtons(data.length);
 
 
-
-
-
 linkList.addEventListener("click", (e) => {
    /// The first part of this event handler will dsiplay the students in increments of 9 in correlation to the pagination button that is selected. ///   
    let present = [];
@@ -71,7 +61,6 @@ linkList.addEventListener("click", (e) => {
          present.push(studentList.children[c])
       }
    };
-   console.log(present)
       if (e.target.type === "button") {
          for (let i = 0; i < present.length; i++) {
             present[i].style.display = "none";
@@ -108,7 +97,6 @@ header.append(searchBar)
 
 /// The following code contains the search bar functionality. ///
 const search = document.getElementById("search");
-
 search.addEventListener("input", () => {
    for (let i = 0; i < studentList.children.length; i++) {
       if (studentList.children[i].firstElementChild.firstElementChild.nextElementSibling.textContent.toUpperCase().includes(search.value.toUpperCase())) {
@@ -119,6 +107,7 @@ search.addEventListener("input", () => {
          studentList.children[i].className = "student-item cf absent"
       } 
    };
+   ///The code below with create an array of students that are currently visible and restrict visibility to 9 students per page.  ///
    let counter = 0;
    let visible = [];
    for (let a of studentList.children) {
@@ -134,23 +123,24 @@ search.addEventListener("input", () => {
          }
       }
    }
+   ///The code block below will dynamically update the number of pagination buttons to match the number of students returned in search results. ///
    let presents = 0;
    for (let c = 0; c < studentList.children.length; c++) {
       if (studentList.children[c].className === "student-item cf present") {
          presents++
       }
    };
-   console.log(presents)   
    linkList.innerHTML = '';
    generateButtons(presents)
 
+   ///This code block will alert the user when 0 search results return. ///
    let noResults = document.createElement("div");
    if (presents === 0) {
       noResults.textContent = "No Results Found";
       noResults.style.color = "red";
       linkList.append(noResults);
    } 
-})
+});
 
 
 
